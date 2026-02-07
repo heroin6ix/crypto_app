@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "17486696625",
+    "project_id": "crypto-app-a73ea",
+    "storage_bucket": "crypto-app-a73ea.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17486696625:android:b5774ba9a7f33d1c2bd290",
+        "android_client_info": {
+          "package_name": "com.example.crypto_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCENQ7n8hqjXOqzW17HtbK0pFj0EuOoDps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
