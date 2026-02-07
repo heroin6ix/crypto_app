@@ -20,14 +20,14 @@ class CryptoCoinTile extends StatelessWidget {
         subtitle: Text('${coin.priceInUSD} \$', style: theme.textTheme.labelSmall),
         trailing: IconButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('/coin', arguments: coin.name,);
+            Navigator.of(context).pushNamed('/coin', arguments: coin,);
           },
           style: (theme.iconButtonTheme.style),
           icon: Icon(Icons.arrow_forward_ios),
         ),
         
         onTap: () {
-          Navigator.of(context).pushNamed('/coin', arguments: coin.name);
+          Navigator.of(context).pushNamed('/coin', arguments: coin);
         },
       );
   }
