@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:talker_flutter/talker_flutter.dart';
@@ -16,6 +17,14 @@ void main() async {
   final talker = TalkerFlutter.init();
   GetIt.I.registerSingleton(talker);
   GetIt.I<Talker>().debug('Talker started...');
+
+  const cryptoCoinsBooxNamed = 'crypto_coins_box';
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(CryptoCoinAdapter());
+  Hive.registerAdapter(CryptoCoinDetailAdapter());
+
+  final cryptoCoinsBox = await Hive.openBox<CryptoCoin>(cryptoCoinsBooxNamed);
 
   WidgetsFlutterBinding.ensureInitialized();
   final app = await Firebase.initializeApp(
@@ -40,7 +49,7 @@ void main() async {
   );
 
   GetIt.I.registerLazySingleton<AbstractCoinsRepository>(
-    () => CryptoCoinsRepository(dio: dio),
+    () => CryptoCoinsRepository(dio: dio, cryptoCoinsBox: cryptoCoinsBox),
   );
 
   FlutterError.onError = (details) =>

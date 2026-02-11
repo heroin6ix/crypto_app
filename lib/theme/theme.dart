@@ -12,14 +12,14 @@ final darkTheme =  ThemeData(
           backgroundColor: Colors.grey[850],
           foregroundColor: Colors.white,
           elevation: 0,
-          titleTextStyle: TextStyle(
+          titleTextStyle: const TextStyle(
             color: Colors.white,
             fontSize: 24,
             fontWeight: FontWeight.w700,
           ),
         ),
 
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Colors.amber,
           foregroundColor: Colors.black,
           // shape: CircleBorder(),

@@ -28,14 +28,14 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Crypto App'),
+        title: const Text('Crypto App'),
         centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => TalkerScreen(talker: GetIt.I<Talker>())),);
             },
-            icon: Icon(Icons.document_scanner_outlined),
+            icon: const Icon(Icons.document_scanner_outlined),
           ),
         ],
       ),
@@ -50,7 +50,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
           builder: (context, state) {
             if (state is CryptoListLoaded) {
               return ListView.separated(
-                padding: EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.only(top: 10),
                 itemCount: state.coinsList.length,
                 separatorBuilder: (context, index) =>
                     const Divider(color: Colors.white24),
@@ -66,12 +66,12 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Something went wrong'),
+                    const Text('Something went wrong'),
                     Text(
                       'Please try again later',
                       style: theme.textTheme.labelSmall?.copyWith(fontSize: 16),
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     OutlinedButton(
                       onPressed: () {
                         _cryptoListBloc.add(LoadCryptoList(completer: null));
