@@ -1,34 +1,63 @@
-import 'package:crypto_app/repositories/crypto_coins/models/models.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class CryptoCoinDetail extends CryptoCoin {
+part 'crypto_coin_details.g.dart';
+
+@JsonSerializable()
+class CryptoCoinDetail extends Equatable {
   const CryptoCoinDetail({
-    required super.name,
-    required super.priceInUSD,
-    required super.imageUrl,
+    required this.priceInUSD,
+    required this.imageUrl,
     required this.toSymbol,
     required this.lastUpdate,
     required this.hight24Hour,
     required this.low24Hours,
   });
 
-  // TOSYMBOL
+  @JsonKey(name: 'TOSYMBOL')
   final String toSymbol;
 
-  // LASTUPDATE
+  @JsonKey(
+    name: 'LASTUPDATE',
+    toJson: _dateTimeToJson,
+    fromJson: _dateTimeFromJson,
+  )
   final DateTime lastUpdate;
 
-  // HIGH24HOUR
+  @JsonKey(name: 'HIGH24HOUR')
   final double hight24Hour;
+  String get hightToDisplay => hight24Hour.toStringAsFixed(6);
 
-  // LOW24HOUR
+  @JsonKey(name: 'LOW24HOUR')
   final double low24Hours;
+  String get lowToDisplay => priceInUSD.toStringAsFixed(6);
+
+  @JsonKey(name: 'PRICE')
+  final double priceInUSD;
+  
+  String get priceToDisplay => priceInUSD.toStringAsFixed(2);
+
+  @JsonKey(name: 'IMAGEURL')
+  final String imageUrl;
+  
+  String get fullImageUrl => 'https://www.cryptocompare.com$imageUrl';
+
+
+  factory CryptoCoinDetail.fromJson(Map<String, dynamic> json) =>
+      _$CryptoCoinDetailFromJson(json);
+  Map<String, dynamic> toJson() => _$CryptoCoinDetailToJson(this);
+
+  static int _dateTimeToJson(DateTime time) => time.millisecondsSinceEpoch;
+  static DateTime _dateTimeFromJson(int milliseconds) =>
+      DateTime.fromMicrosecondsSinceEpoch(milliseconds);
 
   @override
-  List<Object?> get props => super.props
-    ..addAll([
-      toSymbol,
-      lastUpdate,
-      hight24Hour,
-      low24Hours,
-    ]);
+  List<Object?> get props => [
+    toSymbol,
+    lastUpdate,
+    hight24Hour,
+    low24Hours,
+    priceInUSD,
+    imageUrl,
+  ];
 }

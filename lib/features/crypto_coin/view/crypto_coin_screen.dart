@@ -37,7 +37,8 @@ appBar: AppBar(),
         bloc: _coinDetailsBloc,
         builder: (context, state) {
           if (state is CryptoCoinDetailsLoaded) {
-            final coinDetails = state.coinDetails;
+            final coin = state.coin;
+            final coinDetails = coin.details;
             return Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,11 +46,11 @@ appBar: AppBar(),
                   SizedBox(
                     height: 160,
                     width: 160,
-                    child: Image.network(coinDetails.imageUrl),
+                    child: Image.network(coinDetails.fullImageUrl),
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    coinDetails.name,
+                    coin.name,
                     style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
@@ -71,13 +72,13 @@ appBar: AppBar(),
                     child: Column(
                       children: [
                         _DataRow(
-                          title: 'Hight 24 Hour',
-                          value: '${coinDetails.hight24Hour} \$',
+                          title: 'High 24 Hour',
+                          value: '${coinDetails.hightToDisplay} \$',
                         ),
-                        const SizedBox(height: 6),
+                        const SizedBox(height: 12),
                         _DataRow(
                           title: 'Low 24 Hour',
-                          value: '${coinDetails.low24Hours} \$',
+                          value: '${coinDetails.lowToDisplay} \$',
                         ),
                       ],
                     ),
@@ -109,7 +110,7 @@ class _DataRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(width: 140, child: Text(title)),
-        const SizedBox(width: 32),
+        const SizedBox(width: 10),
         Flexible(
           child: Text(value),
         ),
