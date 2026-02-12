@@ -4,16 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class CryptoApp extends StatelessWidget {
+class CryptoApp extends StatefulWidget {
   const CryptoApp({super.key});
 
   @override
+  State<CryptoApp> createState() => _CryptoAppState();
+}
+
+class _CryptoAppState extends State<CryptoApp> {
+  final _appRouter = AppRouter();
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Crypto App',
       theme: darkTheme,
-      routes: routes,
-      navigatorObservers: [TalkerRouteObserver(GetIt.I<Talker>())],
+      routerConfig: _appRouter.config(
+        navigatorObservers: () => [TalkerRouteObserver(GetIt.I<Talker>())],
+      ),
+      // routes: routes,
+      // navigatorObservers: [TalkerRouteObserver(GetIt.I<Talker>())],
     );
   }
 }

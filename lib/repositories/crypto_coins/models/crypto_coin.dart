@@ -1,6 +1,6 @@
 import 'package:crypto_app/repositories/crypto_coins/crypto_coins.dart';
 import 'package:equatable/equatable.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 
 part 'crypto_coin.g.dart';
 

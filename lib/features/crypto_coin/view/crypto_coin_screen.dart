@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:crypto_app/features/crypto_coin/bloc/crypto_coin_details/crypto_coin_details_bloc.dart';
 import 'package:crypto_app/features/crypto_coin/widgets/widgets.dart';
 import '../../../repositories/crypto_coins/crypto_coins.dart';
@@ -5,34 +6,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-
+@RoutePage()
 class CryptoCoinScreen extends StatefulWidget {
-  const CryptoCoinScreen({super.key});
+  const CryptoCoinScreen({super.key, required this.coin});
+
+  final CryptoCoin coin;
 
   @override
   State<CryptoCoinScreen> createState() => _CryptoCoinScreenState();
 }
 
 class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
-  CryptoCoin? coin;
+  // CryptoCoin? coin;
 
   final _coinDetailsBloc = CryptoCoinDetailsBloc(
-    GetIt.I<AbstractCoinsRepository>()
+    GetIt.I<AbstractCoinsRepository>(),
   );
-
   @override
-  void didChangeDependencies() {
-    final args = ModalRoute.of(context)?.settings.arguments;
-    assert(args != null && args is CryptoCoin, 'You must provide String args');
-    coin = args as CryptoCoin;
-    _coinDetailsBloc.add(LoadCryptoCoinDetails(currencyCode: coin!.name));
-    super.didChangeDependencies();
+  void initState() {
+    _coinDetailsBloc.add(LoadCryptoCoinDetails(currencyCode: widget.coin.name));
+    super.initState();
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   final args = ModalRoute.of(context)?.settings.arguments;
+  //   assert(args != null && args is CryptoCoin, 'You must provide String args');
+  //   coin = args as CryptoCoin;
+  //   _coinDetailsBloc.add(LoadCryptoCoinDetails(currencyCode: coin!.name));
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-appBar: AppBar(),
+      appBar: AppBar(),
       body: BlocBuilder<CryptoCoinDetailsBloc, CryptoCoinDetailsState>(
         bloc: _coinDetailsBloc,
         builder: (context, state) {
@@ -95,10 +103,7 @@ appBar: AppBar(),
 }
 
 class _DataRow extends StatelessWidget {
-  const _DataRow({
-    required this.title,
-    required this.value,
-  });
+  const _DataRow({required this.title, required this.value});
 
   final String title;
   final String value;
@@ -111,9 +116,7 @@ class _DataRow extends StatelessWidget {
       children: [
         SizedBox(width: 140, child: Text(title)),
         const SizedBox(width: 10),
-        Flexible(
-          child: Text(value),
-        ),
+        Flexible(child: Text(value)),
       ],
     );
   }
